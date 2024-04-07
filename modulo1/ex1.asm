@@ -34,29 +34,29 @@ VETOR:		.byte	16,"KELVINEVANGNEIVA"
 
 			.text
 
-MAIN:  		MOV		#VETOR,R5	    ;inicializar como o endereço do vetor em R5
-		    	CALL	#MENOR		    ;chamar SUB_ROT
-		  	  JMP		$			        ;travar execucao ao retornar da sub_rot
+MAIN:		MOV		#VETOR,R5	;inicializar como o endereço do vetor em R5
+			CALL	#MENOR		;chamar SUB_ROT
+			JMP		$			;travar execucao ao retornar da sub_rot
 
-MENOR:	  MOV.B	@R5,R8		    ;inicializa o contador em R8
-			    CLR		R7			      ;limpa o valor em R7 para 0 | sera a frequencia de aparicoes do menor elemento no vetor
-			    MOV.B	#0xFF,R6	    ;armazena em R6 o maior valor possivel em 1 byte
-			    INC		R5			      ;aponta para o proximo elemento do vetor
+MENOR:		MOV.B	@R5,R8		;inicializa o contador em R8
+			CLR		R7			;limpa o valor em R7 para 0 | sera a frequencia de aparicoes do menor elemento no vetor
+			MOV.B	#0xFF,R6	;armazena em R6 o maior valor possivel em 1 byte
+			INC		R5			;aponta para o proximo elemento do vetor
 
-LOOP:		  CMP.B	@R5,R6    		;compara o elemento apontado no vetor com o valor em R6 e atualiza os valores das flags CVZN
-  		  	JEQ		FREQ		      ;chama quando @R5 == R6
-	    		JLO		NEXT		      ;se C == '0', entao ir para NEXT
-	  	  	MOV.B	@R5,R6		    ;armazenar em R6 o menor valor encontrado em @R5
-			    MOV.B	#1,R7		      ;resetar o valor de repeticoes
+LOOP:		CMP.B	@R5,R6		;compara o elemento apontado no vetor com o valor em R6 e atualiza os valores das flags CVZN
+			JEQ		FREQ		;chama quando @R5 == R6
+			JLO		NEXT		;se C == '0', entao ir para NEXT
+			MOV.B	@R5,R6		;armazenar em R6 o menor valor encontrado em @R5
+			MOV.B	#1,R7		;resetar o valor de repeticoes
 
-NEXT:		INC		R5		        	;próximo elemento do VETOR
-  			DEC		R8			        ;contador de elementos restantes a se verificar se e o menor valor
-	  		JNZ		LOOP		        ;se contador = 0, então ir para MAIN
-		  	RET					          ;contador == 0
+NEXT:		INC		R5			;próximo elemento do VETOR
+			DEC		R8			;contador de elementos restantes a se verificar se e o menor valor
+			JNZ		LOOP		;se contador = 0, então ir para MAIN
+			RET					;contador == 0
 
-FREQ:		INC 	R7			        ;repeticao de elemento no vetor
-			  JMP		NEXT		        ;voltar de onde chamou em LOOP
-			  NOP					          ;coloquei por causa do warning
+FREQ:		INC 	R7			;repeticao de elemento no vetor
+			JMP		NEXT		;voltar de onde chamou em LOOP
+			NOP					;coloquei por causa do warning
 
 ;-------------------------------------------------------------------------------
 ; Stack Pointer definition

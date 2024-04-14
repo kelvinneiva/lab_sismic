@@ -24,18 +24,18 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
 ; Main loop here
 ;-------------------------------------------------------------------------------
 
-;Escrever sub-rotina que representa com algarismos romanos um número entre 1 e 3999.
+;Escrever sub-rotina que representa com algarismos romanos um nÃºmero entre 1 e 3999.
 
-NUM			.equ		2005   				;Indicar número a ser convertido
+NUM			.equ		2005   				;Indicar nÃºmero a ser convertido
 
 ;------------------------------------------------------------------------------
 ;entra com um numero de 0 ate 3999
 ;retorna o valor em algarismos romanos
 
- 			MOV 		#NUM,R5 			;R5 = número a ser convertido
+ 			MOV 		#NUM,R5 			;R5 = nÃºmero a ser convertido
  			MOV 		#RESP,R6 			;R6 = ponteiro para escrever a resposta
  			CALL 		#ALG_ROM 			;chamar subrotina que converte o numeor para algarismos romanos
- 			JMP 		$ 					;travar execução
+ 			JMP 		$ 					;travar execuÃ§Ã£o
  			NOP 							;exigido pelo montador
 
 ;------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ C4:			MOV.B		ROM_C,0(R6)			;guarda um C onde o R6 aponta no vetor RESP (C4 := Ce
 C_BT_4:		MOV.B		Q100,R15
 			CMP.B		#9,Q100				;Q100 == 900 ? (C_BT_4 := Centena e maior do que 4)
 			JEQ			C9					;Q100 == 900
-			MOV.B		ROM_D,0(R6)			;centena a partir de 5 até 8, colocar o D de 500 na resposta
+			MOV.B		ROM_D,0(R6)			;centena a partir de 5 atÃ© 8, colocar o D de 500 na resposta
 			INC			R6					;proxima posicao do vetor
 			MOV.B		Q100,R12			;inicia o contador02
 			SUB			#5,R12				;guarda as centenas restantes // contador02 de C a serem concatenados na resposta
@@ -174,7 +174,7 @@ D4:			MOV.B		ROM_X,0(R6)			;guarda um X onde o R6 aponta no vetor RESP (D4 := De
 
 D_BT_4:		CMP.B		#9,Q10				;Q100 == 900 ? (C_BT_4 := Centena e maior do que 4)
 			JEQ			D9					;Q100 == 900
-			MOV.B		ROM_L,0(R6)			;dezena a partir de 5 até 8, colocar o L de 50 na resposta
+			MOV.B		ROM_L,0(R6)			;dezena a partir de 5 atÃ© 8, colocar o L de 50 na resposta
 			INC			R6					;proxima posicao do vetor
 			MOV.B		Q10,R12				;inicia o contador02
 			SUB			#5,R12				;guarda as dezenas restantes // contador02 de X a serem concatenados na resposta
@@ -219,7 +219,7 @@ U4:			MOV.B		ROM_I,0(R6)			;guarda um I onde o R6 aponta no vetor RESP (U4 := Un
 
 U_BT_4:		CMP.B		#9,Q1				;Q100 == 900 ? (C_BT_4 := Centena e maior do que 4)
 			JEQ			U9					;Q100 == 900
-			MOV.B		ROM_V,0(R6)			;unidades a partir de 5 até 8, colocar o V de 5 na resposta
+			MOV.B		ROM_V,0(R6)			;unidades a partir de 5 atÃ© 8, colocar o V de 5 na resposta
 			INC			R6					;proxima posicao do vetor
 			MOV.B		Q1,R12				;inicia o contador02
 			SUB			#5,R12				;guarda as unidades restantes // contador02 de I a serem concatenados na resposta
